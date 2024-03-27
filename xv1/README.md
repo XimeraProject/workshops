@@ -21,7 +21,10 @@
 ## Timeline 
 
 ### First 
-* Run diffs on current used ximera.cls files. 
+* Run diffs on current used ximera.cls files.
+  * collect the different files in a repo (presumably ximeraLatex)
+  * document dependencies on xake and/or ximeraServer changes/versions
+  * determine/decide what can.should be in preamble/printstyle (and thus per repo/branch) and what can/should be in ximeraLatex (and thus more global)   
 * If anyone is using a version that was created before our initial submisson to CTAN, there will surely be too many differences to be useful 
 * Test various document class on test repos.  
 * Users will need test repos ready to go. 
