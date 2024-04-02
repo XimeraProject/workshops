@@ -40,4 +40,45 @@
 ### Third 
 * Submit to CTAN 
 * Create a linting system to check PDFs for testing 
-* Create additional printStyles.  
+* Create additional printStyles.
+
+# Changes to ximeraLatex @KULeuven:
+
+* Changes in xourse.cls:
+   * added \providecommand{\subpart}{}: see xourse.4ht
+   * added \newcommand{\activitylink}:   (activity in xourse-PDF with link to external website)
+
+* Changes in xourse.4ht
+   * implement \subpart (and titlenumber/sectiontitlenumber; implementation to be verified)
+   * overwrite \chapterstyle/\sectionstyle: set \activitytoclabel  (for LaTeX-numbering instead of javascript: see server)
+   * overwrite \activity/\practice: set attr data-toc-label to \activitytoclabel
+   * \renewcommand{\activitylink}: add extra menuitem/activity to toc, with external link (see server)
+   * FIX TYPO in \renewenvironment{graded}
+
+ * Changes to ximera.cfg: none
+
+ * Changes to ximera.cls:
+    * add accordion.dtx : \newenvironment{accordion} and {accordion-item}
+    * \tikz/external/system call : add ebb (sizing); fix mutool
+    * call theoremstyle{definition}  (to prevent italics in tikz-externalize...)
+    * add \newtheorem*{exampleNT}  ( No Title...)
+    * add \define@key{answer}{onlinenoinput}[false]{}        (only 'reveal answer' option)
+    * add \define@key{answer}{onlineshowanswerbutton}[false]{}  (add 'reveal answer' option)
+    * \answer prints \ldots\ldots in handout  (was \rm{?})
+    * \answer print {\color{blue}\ensuremath{#2}}  (was \fbox{\ensuremath{#2}} )
+    
+* Changes to ximera.4ht
+    * missing \NewEnviron{html}{\HCode{\BODY}}  % Fowler texlive 2020
+    * change \ConfigureQuestionEnv: do NOT call \ConfigureEnv 
+    * no \ConfigureQuestionEnv for xarmaBoost/shuffle/hint
+    * change \ConfigureTheoremEnv: do NOT call \ConfigureEnv 
+    * add \ConfigureTheoremEnv exampleNT
+    * add accordion/accordion-item
+    * \RenewEnviron{hint}  (with expandable)
+    * \newenvironment{expandable}  (with accordion; API TO BE CHANGED)
+    * MISSING \AtBeginDocument{\renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}}
+    * fix \geogebra and \desmos
+    * feedback: add [solution]   (but now OBSOLETE with expandable ???)
+    * \let\oldlabel\label  \renewcommand{\label}[1]{\oldlabel{#1}\HCode{<a class="ximera-label" id="#1"></a>}}
+    * SYNTAX ERROR ungraded corrected (???)
+
