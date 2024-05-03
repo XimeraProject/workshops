@@ -1,0 +1,8 @@
+32c32
+<   \xourse@logo%
+---
+>   \logo%
+64c64
+< \ifvmode \IgnorePar\fi \EndP\HCode{</div>}}\IgnoreIndent%
+---
+> \ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%

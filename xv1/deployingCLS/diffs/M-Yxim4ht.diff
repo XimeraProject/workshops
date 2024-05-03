@@ -1,0 +1,12 @@
+69d68
+< \ConfigureQuestionEnv{xarmaBoost}{xarma-boost}
+71d69
+< \ConfigureQuestionEnv{shuffle}{shuffle}
+234c232
+< \renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid #ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+---
+> \renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid \#ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+271c269
+< \ifvmode \IgnorePar\fi \EndP\HCode{</div>}}\IgnoreIndent%
+---
+> \ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%

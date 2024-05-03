@@ -1,0 +1,47 @@
+45a46
+> %% src/accordion.dtx  (with options: `classXimera')
+191c192
+<         mutool draw -o \image.svg \image.pdf ;
+---
+>         mutool draw -F svg \image.pdf > \image.svg ;     % mutool adds "1" to filename ????
+192a194
+>         ebb -x \image.png
+277a280
+> \theoremstyle{definition} % No italic  (because this makes also text in TikZ italic !!!)
+643c646,648
+< \setkeys{answer}{id=,given=false}
+---
+> \define@key{answer}{onlinenoinput}[false]{}
+> \define@key{answer}{onlineshowanswerbutton}[false]{}
+> \setkeys{answer}{id=,given=false,onlinenoinput=false,onlineshowanswerbutton=false}
+658c663
+< \fbox{\rm{?}}
+---
+>         \ldots\ldots  
+660c665
+< \fbox{\ensuremath{#2}}
+---
+> {\color{blue}\ensuremath{#2}}
+980a986,1005
+> \colorlet{textColor}{black} % since textColor is referenced below
+> \colorlet{background}{white} % since background is referenced below
+> 
+> %% accordion container
+> \newenvironment{accordion}{%
+> }{%
+> }
+> %% pretty-accordion
+> \iftikzexport
+> \newenvironment{accordion-item}[1][]{%
+> }{%
+> }
+> \else
+> \newenvironment{accordion-item}[1][]{%
+> \paragraph{#1}
+> }{%
+> }
+> \fi
+> 
+> 
+991a1017
+> \DefineVerbatimEnvironment{sagesilent}{Verbatim}{numbers=left,frame=lines,label=SAGE-Silent,labelposition=topline}

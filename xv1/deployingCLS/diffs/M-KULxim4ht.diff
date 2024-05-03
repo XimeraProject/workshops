@@ -1,0 +1,106 @@
+15a16
+> %% src/accordion.dtx  (with options: `htXimera')
+50d50
+< \NewEnviron{html}{\HCode{\BODY}}
+61,62c61,65
+< \renewenvironment{#1}{\refstepcounter{problem}}{}%
+< \ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}}{\ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent}{}{}%
+---
+> \renewenvironment{#1}{%
+> \refstepcounter{problem}%
+> \stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}%
+> }{%
+>   \HCode{</div>}\IgnoreIndent%
+63a67,70
+> }
+> 
+> %\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div role="article" class="problem-environment #2" id="problem\arabic{identification}">}}{\ifvmode \IgnorePar\fi \EndP\HCode{</div class="end-config-#1">}\IgnoreIndent}{}{}%
+> 
+69,71c76,77
+< \ConfigureQuestionEnv{xarmaBoost}{xarma-boost}
+< \ConfigureQuestionEnv{hint}{hint}
+< \ConfigureQuestionEnv{shuffle}{shuffle}
+---
+> %\ConfigureQuestionEnv{hint}{xmhint}
+> 
+73c79,81
+< \renewenvironment{#1}[1][]{\refstepcounter{problem}%
+---
+> \renewenvironment{#1}[1][]{%
+> \stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}%
+> \refstepcounter{problem}%
+76,77c84,86
+< }}{}
+< \ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}}{\HCode{</div>}\IgnoreIndent}{}{}%
+---
+> }}{%
+>   \HCode{</div>}\IgnoreIndent%
+> }%
+79a89,91
+> %\ConfigureEnv{#1}{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<div class="theorem-like problem-environment #1" id="problem\arabic{identification}">}}{\Hnewline\HCode{<span>XX #1 YY</span></div>}\Hnewline\IgnoreIndent}{}{}%
+> 
+> 
+153a166
+> 
+158a172,206
+> \renewenvironment{accordion}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="accordion">}
+> }{\HCode{</div>}\IgnoreIndent}
+> 
+> \renewenvironment{accordion-item}[1][]{\stepcounter{identification}\ifvmode \IgnorePar\fi \EndP\HCode{<h3>}#1\HCode{</h3><div id="accordion-item\arabic{identification}" class="accordion-item">}
+> }{\HCode{</div>}\IgnoreIndent}
+> 
+> %\let\hint\relax
+> %\let\endhint\relax
+> \RenewEnviron{hint}{%
+>  \begin{expandable}{xmhint}{}%
+>    \BODY%
+>  \end{expandable}%
+> }
+> 
+> %% re-implement 04/2023
+> \let\expandable\relax
+> \let\endexpandable\relax
+> %\RenewEnviron{expandable}[2]{%
+> \newenvironment{expandable}[2]{%
+>   \stepcounter{identification}%
+>   \ifvmode \IgnorePar\fi \EndP%
+>   \HCode{<div class="accordion">\Hnewline}%
+>   \HCode{<h3 class="#1">}#2\HCode{</h3>\Hnewline}%
+>   \HCode{<div id="accordion-item\arabic{identification}" class="accordion-item #1-content">\Hnewline}
+> }%
+> %  \BODY
+> {%
+>   \HCode{</div>\Hnewline</div>\Hnewline}\IgnoreIndent
+> }
+> %
+> 
+> \renewenvironment{accordion}{\ifvmode \IgnorePar\fi \EndP\HCode{<div class="accordion">}
+> }{\HCode{</div>}\IgnoreIndent}
+> 
+> 
+167,168d214
+< \AtBeginDocument{\renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}}
+< 
+233,234c279,280
+<   \HCode{<iframe scrolling="no" src="https://tube.geogebra.org/material/iframe/id/#2/width/#3/height/#4/border/888888/rc/\geo@rc/ai/false/sdz/\geo@sdz/smb/\geo@smb/stb/\geo@stb/stbh/\geo@stbh/ld/\geo@ld/sri/\geo@sri/at/auto" width="#3px" height="#4px" style="border:0px;"> </iframe>}}
+< \renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid #ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+---
+>   \HCode{<iframe scrolling="no" src="https://www.geogebra.org/material/iframe/id/#2/width/#3/height/#4/border/888888/rc/\geo@rc/ai/false/sdz/\geo@sdz/smb/\geo@smb/stb/\geo@stb/stbh/\geo@stbh/ld/\geo@ld/sri/\geo@sri/at/auto" width="#3px" height="#4px" style="border:0px;"> </iframe>}}
+> \renewcommand{\desmos}[3]{\HCode{<iframe src="https://www.desmos.com/calculator/#1" width="100\%" height="#3px" style="border: 1px solid \#ccc" frameborder=0>This browser does not support embedded elements.</iframe>}}
+251c297,298
+< {\HCode{<div class="feedback" data-feedback="script" id="feedback\arabic{identification}"><script type="text/javascript">function feedback\arabic{identification}() }\{\HCode{ return \detokenize{#1}; }\}\HCode{</script>}}}}
+---
+> {\ifthenelse{\equal{#1}{solution}}{\HCode{<div class="feedback" data-feedback="solution" id="feedback\arabic{identification}">}}%
+> {\HCode{<div class="feedback" data-feedback="script" id="feedback\arabic{identification}"><script type="text/javascript">function feedback\arabic{identification}() }\{\HCode{ return \detokenize{#1}; }\}\HCode{</script>}}}}}
+255,256c302,303
+< \renewcommand{\label}[1]{\HCode{<a class="ximera-label" id="#1"></a>}}
+< \renewcommand{\ref}[1]{\HCode{<a class="reference" href="\##1">#1</a>}}
+---
+> \let\oldlabel\label
+> \renewcommand{\label}[1]{\oldlabel{#1}\HCode{<a class="ximera-label" id="#1"></a>}}
+264a312
+> 
+271c319
+< \ifvmode \IgnorePar\fi \EndP\HCode{</div>}}\IgnoreIndent%
+---
+> \ifvmode \IgnorePar\fi \EndP\HCode{</div>}\IgnoreIndent%

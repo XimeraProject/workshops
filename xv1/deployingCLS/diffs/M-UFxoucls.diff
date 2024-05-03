@@ -1,0 +1,12 @@
+15c15
+< %%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+---
+> %%       Author:| Jim Fowler and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+96c96
+<   \begingroup\skip@preamble\otherinput{#2}\endgroup
+---
+>   \begingroup\skip@preamble\otherinput{#2}\endgroup\clearpage
+102c102
+<   \begingroup\skip@preamble\otherinput{#2}\endgroup
+---
+>   \begingroup\skip@preamble\otherinput{#2}\endgroup\clearpage

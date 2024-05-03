@@ -1,0 +1,116 @@
+52c52
+< %%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+---
+> %%       Author:| Jim Fowler and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+88,93c88,97
+< \newif\ifnoauthor
+< \noauthorfalse
+< \DeclareOption{noauthor}{\noauthortrue}
+< \newif\ifnooutcomes
+< \nooutcomesfalse
+< \DeclareOption{nooutcomes}{\nooutcomestrue}
+---
+> \newif\ifauthor%                                        Flag for whether or not any author is given
+>     \authorfalse%                                       Defaults to false.
+> \newif\ifsuppressAuthorDisplay%                         A flag for deliberately suppressing author even if it is given.
+>     \suppressAuthorDisplayfalse%                        Default to not suppressing the display of the author.
+> \DeclareOption{noauthor}{\suppressAuthorDisplaytrue}
+> \newif\ifoutcomes%                                      Flag for whether or not outcomes are given.
+>     \outcomesfalse%                                     Default to false.
+> \newif\ifsuppressOutcomesDisplay%                       Flag for if outcome displays should be suppressed, even if given.
+>     \suppressOutcomesDisplayfalse%                      Default to not supressing the display of outcomes
+> \DeclareOption{nooutcomes}{\suppressOutcomesDisplaytrue}
+125c129
+<   \nooutcomesfalse%
+---
+>   \outcomestrue%
+141c145
+<   \nooutcomesfalse%
+---
+>   \outcomestrue%
+144a149
+> 
+235c240
+< {%If so, reset to 0.
+---
+> {%If so, reset to 0, but throw a warning.
+236a242
+>         \PackageWarning{MakeCounter}{The Counter #1 already existed so we reset it to zero. Hope this doesn't break anything!}
+246c252
+< {%If so, reset to 0.
+---
+> {%If so, reset to 0, but throw a warning.
+247a254
+>         \PackageWarning{MakeCounter}{The Counter #1 already existed so we reset it to zero. Hope this doesn't break anything!}
+271,272c278,282
+<   \newcommand{\outcome}[1]{\edef\theoutcomes{\theoutcomes #1~}%
+<   \immediate\write\outcomefile{\unexpanded{\outcome}{#1}}}
+---
+>   \newcommand{\outcome}[1]{
+>       \outcomestrue% If we invoke |\outcome|, then we should have outcomes and thus we will flag it as true.
+>       \edef\theoutcomes{\theoutcomes #1~}%
+>       \immediate\write\outcomefile{\unexpanded{\outcome}{#1}}
+>       }
+523c533,536
+< \def\author#1{\gdef\@author{#1}}
+---
+> \def\author#1{
+>     \gdef\@author{#1}% Defines activity author
+>     \authortrue% Flags author as given.
+>     }
+550,551c563,579
+<   \ifnooutcomes\else\let\thefootnote\relax\footnote{Learning outcomes: \theoutcomes}\fi
+<   \ifnoauthor\else\let\thefootnote\relax\footnote{Author(s):~\@author}\fi
+---
+>   %%% Design Question:
+>   % Would it make more sense to have author/outcomes in the header and reserve footer for footnotes?
+>   % Or some other method to distinguish between the two now that footnotes are viable?
+>   \ifoutcomes%                                          If we have learning outcomes, we should display them.
+>       \bgroup
+>           \let\thefootnote\relax%                       Kills off the symbol of the footnote
+>           \footnote{Learning outcomes: \theoutcomes}
+>           \setcounter{footnote}{0}%                     Reset the footnote to zero to fix numberings.
+>       \egroup
+>       \fi
+>   \ifauthor%                                            If we have an author, we should display it.
+>       \bgroup
+>           \let\thefootnote\relax%                       Kills off the symbol of the footnote
+>           \footnote{Author(s):~\@author}
+>           \setcounter{footnote}{0}%                     Reset the footnote to zero to fix numberings.
+>       \egroup
+>       \fi
+664c692
+< \GenericError{\space\space\space\space}% Throw an error based on... something? -- Jason
+---
+> \GenericError{\space\space\space\space}% Throw an error if the \answer command is not in mathmode -- Jason
+713a742
+> 
+792,795c821,827
+< \newenvironment{validator}[1][]{
+< \def\PH@Command{#1}% Use PH@Command to hold the content and be a target for "\expandafter" to expand once.
+< \mbox{\texttt{\detokenize\expandafter{\PH@Command}}}% Now expand PH@Command once and then detokenize.
+< }{}
+---
+> \newenvironment{validator}[1][]
+>     {% Start env code.
+>    \def\PH@Command{#1}% Use PH@Command to hold the content and be a target for "\expandafter" to expand once.
+>    \mbox{\texttt{\detokenize\expandafter{\PH@Command}}}% Now expand PH@Command once and then detokenize.
+> }
+>     {% End env code.
+>     }
+798,803c830,835
+<                {%
+<  \setbox0\vbox\bgroup
+<        }
+<                {%
+<  \egroup
+<        }
+---
+>     {% Start env code.
+>         \setbox0\vbox\bgroup
+>     }
+>     {% End env code.
+>         \egroup
+>     }
+1014a1047
+> 
