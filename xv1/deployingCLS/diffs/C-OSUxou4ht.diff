@@ -1,0 +1,11 @@
+32d31
+< \ifdefined\xourse@logo%
+34,35c33
+<   \HCode{" />\Hnewline}%
+< \fi}
+---
+>   \HCode{" />\Hnewline}}
+60c58
+< \HCode{<h1 id="part\arabic{ximera@part}" class="card part">}#1\HCode{</h1>}%
+---
+> \HCode{<h1 id="part\arabic{ximera@part}" class="card part">#1</h1>}%
