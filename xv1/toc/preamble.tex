@@ -1,0 +1,61 @@
+
+\renewcommand\chapterstyle{%
+  \def\maketitle{%
+     \phantomsection
+     \ifaddtitlenumber
+        \addtocounter{titlenumber}{1}% Verhoog counter voor 'titlenumber' = 2e niveau
+        \addcontentsline{toc}{section}{\textbf{\thetitlenumber\hspace{1em}\@title}}% Voeg toe aan inhoudsopgave
+    \else
+        \addcontentsline{toc}{section}{\@title}% Voeg toe aan inhoudsopgave
+    \fi
+
+    \ifprintactivitytitle    % if not, it's in the header ....
+        \ifaddtitlenumber
+            {\normalfont\Large\bfseries \thetitlenumber\hspace{1em} \@title}
+        \else
+            {\normalfont\Large\bfseries \@title}
+        \fi
+     \fi 
+     \ifprintactivityqrcode
+	    \marginnote{\qrcode[hyperlink,height=1.5cm]{\xmbaseurl\currfiledir\currfilebase}}[-2cm] % left
+     \fi
+     \ifprintactivityurl
+        \url{\xmbaseurl\currfiledir\currfilebase}
+     \fi
+    
+    % Inside \chapterstyle, sections map to subsections     
+    \renewcommand\xmsection\subsection
+    \renewcommand\xmsubsection\subsubsection
+    \renewcommand{\thesubsection}{\thetitlenumber.\arabic{subsection}}
+    \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+    
+    {% Reset de per-chapter counters 
+         \setcounter{sectiontitlenumber}{0}
+         \setcounter{proposition}{0}
+         \setcounter{problem}{0}
+         \setcounter{definition}{0}
+         \setcounter{example}{0}
+         \setcounter{explanation}{0}
+         \setcounter{remark}{0}
+         \setcounter{notation}{0}
+         \setcounter{observation}{0}
+         \setcounter{theorem}{0}
+         \setcounter{warning}{0}
+         \setcounter{xmuitweiding}{0}
+         \setcounter{exercise}{0}
+         \setcounter{question}{0}
+         \setcounter{subsection}{0}
+         \setcounter{subsubsection}{0}         
+         \setcounter{hint}{0}         
+    }
+    
+    \ifaddtitlenumber
+        \markboth{\thetitlenumber\hspace{1em} \@title}{\thetitlenumber\hspace{1em} \@title}   % fix wrong section on last page of activity    
+    \else
+        \markboth{\@title}{\@title}   % fix wrong section on last page of activity    
+    \fi
+    \thispagestyle{firstpage} 
+    \afterpage{\thispagestyle{otherpage}} 
+  }% end maketitle
+}
