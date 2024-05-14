@@ -50,6 +50,41 @@ At this point we had a combined branch of the ximera documentclass.
 ## Tuesday 5/7/2024
 
 
+At this point we had a documentclass that mostly compiled. The
+remaining issues were more specialized.
+
+
+### Activites
+
+* Made improvements that should help authors do common things
+* Implemented as `\desmosThreeD`
+* Worked on the examples
+* Worked on Docker
+* Worked on TOC
+
+
+
+
+
+## Wednesday 5/8/2024
+
+We submitted to CTAN. 
+
+### Activites
+* Worked on TOC Depth. Discussed certain "philosophical" issues of
+  `\chapterstyle` and `\sectionstyle`. Bart's thought is that the
+  documentclass is designed to accomidate the syntax used in online
+  textbooks in a resonable way.
+* 
+
+
+
+
+
+
+
+
+
 
 Some points to consider (please add and or comment!) 
 
