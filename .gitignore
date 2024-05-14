@@ -1,0 +1,13 @@
+
+*.aux
+*.fdb_latexmk
+*.fls
+*.ids
+*.jax
+*.log
+*.oc
+*.out
+*.pdf
+*.sage
+*.gz
+*.toc
