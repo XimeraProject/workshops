@@ -1,0 +1,150 @@
+50,51d49
+< %% src/clearEnv.dtx  (with options: `classXimera')
+< %% src/hideEnv.dtx  (with options: `classXimera')
+54c52
+< %%       Author:| Jim Fowler and Oscar Levin and Jason Nowell and Wim Obbels and Hans Parshall and Bart Snapp
+---
+> %%       Author:| Jim Fowler and Jeramiah Hocutt and Oscar Levin and Jason Nowell and Hans Parshall and Bart Snapp
+61c59
+<  [2024/05/12 v1.5.1
+---
+>  [2018/10/28 v1.00
+64d61
+< 
+194,197c191,192
+<         mutool draw -F svg \image.pdf > \image.svg ;     % mutool adds "1" to filename ????
+<         mutool draw -o \image.svg \image.pdf ;
+<         mutool draw -r 150 -c rgbalpha -o \image.png \image.pdf ;
+<         ebb -x \image.png
+---
+>         mudraw -o \image.svg \image.pdf ;
+>         mudraw -r 150 -c rgbalpha -o \image.png \image.pdf ;
+282d276
+< \theoremstyle{definition} % No italic (because this makes also text in TikZ italic !!!)
+563,564c557
+< \renewcommand{\thesection}{\arabic{titlenumber}.\arabic{section}}
+< \renewcommand{\thesubsection}{\arabic{titlenumber}.\arabic{section}.\arabic{subsection}}
+---
+> \renewcommand{\thesection}{\arabic{titlenumber}.\arabic{section}~}
+571,572c564
+< \setcounter{secnumdepth}{2}
+< \setcounter{tocdepth}{2}
+---
+> \setcounter{secnumdepth}{0}
+579c571
+<                     {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{section}{0}}%
+---
+>                     {\vskip .6em\noindent\textit\theabstract\setcounter{problem}{0}\setcounter{sectiontitlenumber}{0}}%
+582c574
+< }}
+---
+>                   }}
+587,588c579
+<     \addtocounter{section}{1}
+<     \setcounter{sectiontitlenumber}{\value{section}}
+---
+>     \addtocounter{sectiontitlenumber}{1}
+591c582
+<     {\vskip .6em\noindent\textit\theabstract\setcounter{subsection}{0}}%
+---
+>     {\vskip .6em\noindent\textit\theabstract}%
+593,604c584,585
+<     \phantomsection\addcontentsline{toc}{section}{\thetitlenumber.\thesectiontitlenumber\hspace{1em}\@title}%
+<  \renewcommand\section{\@startsection{subsection}{2}{\z@}%
+<                                        {-3.25ex\@plus -1ex \@minus -.2ex}%
+<                                        {1.5ex \@plus .2ex}%
+<                                        {\normalfont\large\bfseries}}
+< 
+<  \renewcommand\subsection{\@startsection{subsubsection}{3}{\z@}%
+<                                           {-3.25ex\@plus -1ex \@minus -.2ex}%
+<                                           {1.5ex \@plus .2ex}%
+<                                           {\normalfont\normalsize\bfseries}}
+< 
+< }}
+---
+>     \phantomsection\addcontentsline{toc}{subsection}{\thetitlenumber.\thesectiontitlenumber\hspace{1em}\@title}%
+>   }}
+634d614
+< \newcommand{\desmosThreeD}[3]{Desmos3D link: \url{https://www.desmos.com/3d/#1}}
+663,682c643
+< \define@key{answer}{onlinenoinput}[false]{}
+< \define@key{answer}{onlineshowanswerbutton}[false]{}
+< \setkeys{answer}{id=,given=false,onlinenoinput=false,onlineshowanswerbutton=false}
+< 
+< \newcommand{\answerFormatLength}{2cm}
+< 
+< \newcommand{\answerFormatDots}[1]{\ldots\ldots}
+< \newcommand{\answerFormatLine}[1]{\protect\rule{\answerFormatLength}{0.4pt}}
+< \newcommand{\answerFormatFlexibleLine}[1]{\protect\rule{\widthof{$#1$}*2}{0.4pt}}
+< \newcommand{\answerFormatFlexibleBox}[1]{\fbox{\scalebox{2}{\phantom{$#1$}}}}
+< 
+< \newcommand{\answerFormatPlain}[1]{\ensuremath{#1}}
+< \newcommand{\answerFormatBlue}[1]{\color{blue}\ensuremath{#1}}
+< \newcommand{\answerFormatBoxed}[1]{\fbox{\ensuremath{#1}}}
+< \newcommand{\answerFormatBoxedGiven}[1]{\underset{\scriptstyle\mathrm{given}}{\fbox{\ensuremath{#1}}}}
+< 
+< \let\handoutAnswerFormat\answerFormatDots
+< \let\defaultAnswerFormat\answerFormatBlue
+< \let\givenAnswerFormat\answerFormatBoxedGiven
+< 
+---
+> \setkeys{answer}{id=,given=false}
+692c653
+< \givenAnswerFormat{#2} %% in case the argument helps formatting
+---
+> \underset{\scriptstyle\mathrm{given}}{\fbox{\ensuremath{#2}}}
+697c658
+< \handoutAnswerFormat{#2} %% in case the argument helps formatting
+---
+> \fbox{\rm{?}}
+699c660
+< \defaultAnswerFormat{#2} %% in case the argument helps formatting
+---
+> \fbox{\ensuremath{#2}}
+736a698,699
+> \ifxake
+> \else
+738a702
+> \fi
+853c817
+< \end{trivlist} 
+---
+> \end{trivlist}
+1054,1086d1017
+< \newcommand{\clearEnv}[1]{
+<     %% Syntax: \clearEnv{envName}
+<     %   #1 is envName is the name of the environment you want to clear. This will (re)define the
+<     %       begin and end environments, as well as the internal counter from \newtheoremenv to \relax.
+<     \expandafter\let\csname #1\endcsname\relax
+<     \expandafter\let\csname end#1\endcsname\relax
+<     \expandafter\let\csname c@#1\endcsname\relax
+<     }
+< 
+< \newcommand{\hideEnv}[2][]{
+<     %% Syntax: \hideEnv[NewCode]{environmentName}
+< 
+<     \expandafter\def\csname temp@#2\endcsname\csname #2\endcsname
+<     \expandafter\def\csname temp@end#2\endcsname\csname end#2\endcsname
+<     \expandafter\def\csname#2\endcsname{
+<         \ifnum\value{depth@Check}<1
+<         Suppress Should start here.
+<         \suppress
+<         \fi
+<         \stepcounter{depth@Check}
+< 
+<         }
+<     \expandafter\def\csname end#2\endcsname{
+<         \addtocounter{depth@Check}{-1}
+<         \ifnum\value{depth@Check}<1
+<         Suppress Should End Here.
+<         \endsuppress
+<         \fi
+< 
+<     \noexpand{#1}
+<     }
+<     }
+< 
+1088c1019
+< %% Copyright (C) 2024 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
+---
+> %% Copyright (C) 2018 by Bart Snapp <bart.snapp@gmail.com> and Jim Fowler <kisonecat@gmail.com>
